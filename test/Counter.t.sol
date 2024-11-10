@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Test} from "forge-std/Test.sol";
+import {Test, stdError} from "forge-std/Test.sol";
 import {Counter} from "../src/Counter.sol";
 
 /**
@@ -33,6 +33,15 @@ contract CounterTest is Test {
      */
     function testFailPrecisionOverflow() public {
         counter.dec(); // 因为是无符号整数初始值是 0 ，减 1 的话就会溢出
+    }
+
+    /**
+     * 使用 vm.expectRevert 来断言 这种写法容易看出具体什么错误
+     */
+    function testDescCanNotPrecisionOverflow() public {
+        // 对下面执行的一次调用进行断言（只针对下面这一行，如果有多行可能的报错调用，则需要分装到一个函数中）
+        vm.expectRevert(stdError.arithmeticError);
+        counter.dec();
     }
 
     function testDec() public {
