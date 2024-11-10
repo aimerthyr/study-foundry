@@ -1,5 +1,15 @@
 {
 	"dependencies": {
 		"@openzeppelin/contracts": "^5.1.0"
+	},
+	"devDependencies": {
+		"husky": "^9.1.6",
+		"lint-staged": "^15.2.10"
+	},
+	"scripts": {
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"{src,test,script}/**/*.sol": "forge fmt"
 	}
 }
